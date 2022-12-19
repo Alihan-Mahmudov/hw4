@@ -15,3 +15,25 @@ share_contact = KeyboardButton("/phon", request_contact=True)
 
 start_markup.add(mem_button, quiz_button,
                  share_location, share_contact)
+
+cancel_button = KeyboardButton('CANCEL')
+cancel_markup = ReplyKeyboardMarkup(
+    resize_keyboard=True,
+    one_time_keyboard=True
+).add(cancel_button)
+
+d_backend = KeyboardButton("Backand")
+d_android = KeyboardButton("Android")
+d_uxui = KeyboardButton("UXUI")
+d_drugoe = KeyboardButton("Другое")
+
+gender_markup = ReplyKeyboardMarkup(
+    resize_keyboard=True,
+    one_time_keyboard=True
+).add(d_backend, d_android, d_uxui, d_drugoe, cancel_button)
+
+
+submit_markup = ReplyKeyboardMarkup(
+    resize_keyboard=True,
+    one_time_keyboard=True
+).add(KeyboardButton('ДА'), KeyboardButton('НЕТ'))
