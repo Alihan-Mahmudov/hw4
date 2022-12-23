@@ -1,90 +1,54 @@
+from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 from config import bot, dp
-from aiogram import types, Dispatcher
 
-
+@dp.callback_query_handler(text = 'button1')
 async def quiz_2(call: types.CallbackQuery):
-    markup = InlineKeyboardMarkup()
-    button_call_1 = InlineKeyboardButton("NEXT", callback_data="button_call_2")
-    markup.add(button_call_1)
-
-    question = "Где проходит чемпионат мира по футболу в 2022г?"
+    markup2 = InlineKeyboardMarkup()
+    button2 = InlineKeyboardButton('Next', callback_data='button2')
+    markup2.add(button2)
+    question = 'Что такое Бургер Кинг?'
     answers = [
-        "Венгрия",
-        "Испания",
-        "США",
-        "Катар",
-        "Франция",
-        "Иран",
+        'Вкусно и точка',
+        'Сеть фаст фуда',
+        'гоДно',
+        'гоВно'
     ]
-
     await bot.send_poll(
         chat_id=call.from_user.id,
-        question=question,
-        options=answers,
-        is_anonymous=False,
-        type='quiz',
+        question = question,
+        options = answers,
+        is_anonymous = False,
+        type = 'quiz',
         correct_option_id=3,
-        explanation="Воллейбол не смотрим да",
-        open_period=5,
-        reply_markup=markup
+        open_period=15,
+        reply_markup=markup2,
     )
+@dp.callback_query_handler(text = 'buttonaud')
+async def Burger_Kind_audio2(call: types.CallbackQuery):
+    audio = open('media/ng brg.mp3', 'rb')
+    await bot.send_audio(call.from_user.id, audio=audio)
 
+@dp.callback_query_handler(text = 'button2')
 async def quiz_3(call: types.CallbackQuery):
-    markup = InlineKeyboardMarkup()
-    button_call_1 = InlineKeyboardButton("NEXT", callback_data="button_call_3")
-    markup.add(button_call_1)
-
-    question = 'Угадай число'
+    question = 'Что такое Кинг?'
     answers = [
-        "1",
-        "54",
-        "76",
-        "37",
-        "6534",
-        "43",
-        "76",
-        "14",
+        'Кароль',
+        'Каролева',
+        'Валет',
+        'Бургер'
     ]
-
     await bot.send_poll(
         chat_id=call.from_user.id,
-        question=question,
-        options=answers,
-        is_anonymous=False,
-        type='quiz',
-        correct_option_id=5,
-        explanation="ахахахахаххааххаах",
-        open_period=5,
-        reply_markup=markup
-    )
-
-async def quiz_4(call: types.CallbackQuery):
-    # markup = InlineKeyboardMarkup()
-    # button_call_2 = InlineKeyboardButton("NEXT", callback_data="button_call_2")
-    # markup.add(button_call_2)
-
-    question = 'Сколиько мне лет?'
-    answers = [
-        "1",
-        "54",
-        "76",
-        "13"
-    ]
-
-    await bot.send_poll(
-        chat_id=call.from_user.id,
-        question=question,
-        options=answers,
-        is_anonymous=False,
-        type='quiz',
+        question = question,
+        options = answers,
+        is_anonymous = False,
+        type = 'quiz',
         correct_option_id=3,
-        explanation="ахахахахаххааххаах",
-        open_period=5
+        open_period=15,
     )
 
-
-def register_hendler_callback(dp: Dispatcher):
-    dp.register_callback_query_handler(quiz_2, text="button_call_1")
-    dp.register_callback_query_handler(quiz_3, text="button_call_2")
-    dp.register_callback_query_handler(quiz_4)
+def register_handlers_callback(dp : Dispatcher):
+    dp.register_callback_query_handler(quiz_2, text = 'button1')
+    dp.register_callback_query_handler(Burger_Kind_audio2,text = 'buttonaud')
+    dp.register_callback_query_handler(quiz_3, text='button2')
